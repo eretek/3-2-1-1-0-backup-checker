@@ -1,0 +1,56 @@
+{
+ "tests": [
+  {
+   "in": {
+    "csv": "system,copy,media,offsite,immutable,verified\nERP,production,disk,no,no,yes\nERP,backup-local,disk,no,no,yes\nERP,cloud,object,yes,yes,yes\nFile,production,disk,no,no,yes\nFile,nas,disk,no,no,no"
+   },
+   "v": {
+    "bad": 1,
+    "result": {
+     "ERP": [
+      true,
+      true,
+      true,
+      true,
+      true
+     ],
+     "File": [
+      false,
+      false,
+      false,
+      false,
+      false
+     ]
+    }
+   }
+  },
+  {
+   "in": {
+    "csv": "system;copy;media;offsite;immutable;verified\nDB;production;disk;hayır;hayır;evet\nDB;repo;disk;hayır;hayır;evet\nDB;tape;tape;evet;evet;hayır"
+   },
+   "v": {
+    "result": {
+     "DB": [
+      true,
+      true,
+      true,
+      true,
+      false
+     ]
+    }
+   }
+  },
+  {
+   "in": {
+    "csv": "system,media,offsite,immutable,verified\nA,disk,maybe,no,yes"
+   },
+   "err": "csv"
+  },
+  {
+   "in": {
+    "csv": "system,media\nA,disk"
+   },
+   "err": "csv"
+  }
+ ]
+}
